@@ -29,5 +29,5 @@ public interface ProductRepository {
    */
   void updateProduct(Product product);
 
-  Optional<Product> findByid(UUID id);
+  Optional<Product> findByIdForUpdate(UUID id);
 }

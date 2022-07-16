@@ -6,6 +6,9 @@ import com.example.rohlikproject.infrastructure.mapping.ProductEntity;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import org.springframework.data.relational.core.sql.LockMode;
+import org.springframework.data.relational.repository.Lock;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -26,8 +29,8 @@ public class ProductRepositoryAdapter implements ProductRepository {
     productRepository.save(productEntity);
   }
 
-  @Override
-  public Optional<Product> findByid(UUID id) {
+  @Lock(LockMode.PESSIMISTIC_READ)
+  public Optional<Product> findByIdForUpdate(UUID id) {
     return productRepository
         .findById(id)
         .map(
