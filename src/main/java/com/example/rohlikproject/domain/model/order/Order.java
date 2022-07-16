@@ -5,14 +5,19 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 public class Order implements Serializable {
+
+  private UUID id;
   private Instant createDate;
   private Instant closedDate;
   private OrderStatus status;
   private Set<OrderItem> items;
 
-  public Order(Instant createDate, Instant closedDate, OrderStatus status, Set<OrderItem> items) {
+  public Order(
+      UUID id, Instant createDate, Instant closedDate, OrderStatus status, Set<OrderItem> items) {
+    this.id = id;
     this.createDate = createDate;
     this.closedDate = closedDate;
     this.status = status;
@@ -37,6 +42,10 @@ public class Order implements Serializable {
     return status;
   }
 
+  public UUID getId() {
+    return id;
+  }
+
   public Set<OrderItem> getItems() {
     return items;
   }
@@ -49,20 +58,11 @@ public class Order implements Serializable {
     return total;
   }
 
-  public void cancel() {
-    this.status = OrderStatus.CANCELED;
-    this.closedDate = Instant.now();
-  }
-
-  public void close() {
-    this.status = OrderStatus.CLOSED;
-    this.closedDate = Instant.now();
-  }
-
   @Override
   public String toString() {
     final StringBuilder sb = new StringBuilder("Order{");
-    sb.append("createDate=").append(createDate);
+    sb.append("id=").append(id);
+    sb.append(", createDate=").append(createDate);
     sb.append(", closedDate=").append(closedDate);
     sb.append(", status=").append(status);
     sb.append(", items=").append(items);

@@ -41,6 +41,7 @@ public class OrderRepositoryAdapter implements OrderRepository {
                       .collect(Collectors.toSet());
 
               return new Order(
+                  orderEntity.getId(),
                   orderEntity.getCreateDate(),
                   orderEntity.getClosedDate(),
                   orderEntity.getStatus(),
@@ -90,6 +91,7 @@ public class OrderRepositoryAdapter implements OrderRepository {
                           })
                       .collect(Collectors.toSet());
               return new Order(
+                  orderEntity.getId(),
                   orderEntity.getCreateDate(),
                   orderEntity.getClosedDate(),
                   orderEntity.getStatus(),

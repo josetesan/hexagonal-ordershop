@@ -8,14 +8,15 @@ import com.example.rohlikproject.application.query.order.GetOrdersQuery;
 import com.example.rohlikproject.application.querybus.QueryBus;
 import com.example.rohlikproject.domain.model.order.Order;
 import java.util.List;
+import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -45,16 +46,26 @@ public class OrderController {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> cancelOrder(@RequestParam("id") CancelOrderCommand command)
-      throws Exception {
-    this.commandBus.handle(command);
+  public ResponseEntity<Void> cancelOrder(@PathVariable("id") UUID id) throws Exception {
+    try {
+      this.commandBus.handle(new CancelOrderCommand(id));
+    } catch (Exception onfe) {
+      return ResponseEntity.badRequest()
+          .headers(httpHeaders -> httpHeaders.add("x-error", onfe.getMessage()))
+          .build();
+    }
     return ResponseEntity.noContent().build();
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<Void> payOrder(@RequestParam("id") PayOrderCommand command)
-      throws Exception {
-    this.commandBus.handle(command);
+  public ResponseEntity<Void> payOrder(@PathVariable("id") UUID id) {
+    try {
+      this.commandBus.handle(new PayOrderCommand(id));
+    } catch (Exception onfe) {
+      return ResponseEntity.badRequest()
+          .headers(httpHeaders -> httpHeaders.add("x-error", onfe.getMessage()))
+          .build();
+    }
     return ResponseEntity.accepted().build();
   }
 }
