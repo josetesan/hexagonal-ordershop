@@ -1,7 +1,6 @@
 package com.example.rohlikproject.application.usecases.products;
 
 import com.example.rohlikproject.domain.model.product.Product;
-import com.example.rohlikproject.domain.model.product.ProductRepository;
 import java.util.List;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +14,6 @@ public class GetProductsUseCase {
   }
 
   public List<Product> handle() {
-    return productRepository.findAll();
+    return productRepository.retrieveProducts();
   }
 }

@@ -15,12 +15,12 @@ create table PRODUCTS (
     PRIMARY KEY (ID)
 );
 
-create table ORDER_ITEM (
+create table ORDER_ITEMS (
     order_id uuid not null,
     product_id uuid not null,
     create_date timestamp not null default now(),
     amount int not null default 0,
-    price numeric(8,2) not null default 0.0,
+    unit_price numeric(6,2) not null default 0.0,
     PRIMARY KEY (order_id, product_id)
 );
 

@@ -1,18 +1,19 @@
-package com.example.rohlikproject.domain.model.order;
+package com.example.rohlikproject.infrastructure.mapping;
 
-import com.example.rohlikproject.domain.model.product.Product;
 import java.util.UUID;
+import org.springframework.data.relational.core.mapping.Table;
 
-public class OrderItem {
+@Table("order_items")
+public class OrderItemEntity {
 
-  private final UUID productId;
-  private final Integer amount;
-  private final Double unitPrice;
+  private UUID productId;
+  private Integer amount;
+  private Double unitPrice;
 
-  public OrderItem(Product product, Integer amount) {
-    this.productId = product.getId();
+  public OrderItemEntity(UUID productId, Integer amount, Double unitPrice) {
+    this.productId = productId;
     this.amount = amount;
-    this.unitPrice = product.getUnitPrice();
+    this.unitPrice = unitPrice;
   }
 
   public UUID getProductId() {
@@ -27,17 +28,12 @@ public class OrderItem {
     return unitPrice;
   }
 
-  public Double getTotalPrice() {
-    return unitPrice * amount;
-  }
-
   @Override
   public String toString() {
     final StringBuilder sb = new StringBuilder("OrderItem{");
     sb.append("productId=").append(productId);
     sb.append(", amount=").append(amount);
     sb.append(", unitPrice=").append(unitPrice);
-    sb.append(", totalPrice=").append(getTotalPrice());
     sb.append('}');
     return sb.toString();
   }

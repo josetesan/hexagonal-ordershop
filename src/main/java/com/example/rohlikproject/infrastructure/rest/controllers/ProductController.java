@@ -29,7 +29,7 @@ public class ProductController {
   @PostMapping
   public ResponseEntity<String> createProduct(@RequestBody Product product) throws Exception {
     CreateProductCommand createProductCommand =
-        new CreateProductCommand(product.getName(), product.getPrice(), product.getAmount());
+        new CreateProductCommand(product.getName(), product.getUnitPrice(), product.getAmount());
     this.commandBus.handle(createProductCommand);
     return ResponseEntity.ok().build();
   }
@@ -37,8 +37,8 @@ public class ProductController {
   @GetMapping
   @ResponseBody
   public ResponseEntity<List> getProducts() throws Exception {
-    GetProductsQuery command = new GetProductsQuery();
-    List<Product> products = this.queryBus.handle(command);
+    GetProductsQuery query = new GetProductsQuery();
+    List<Product> products = this.queryBus.handle(query);
     return ResponseEntity.ok().body(products);
   }
 }

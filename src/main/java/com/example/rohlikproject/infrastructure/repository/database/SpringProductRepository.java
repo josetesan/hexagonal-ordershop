@@ -1,5 +1,6 @@
-package com.example.rohlikproject.domain.model.product;
+package com.example.rohlikproject.infrastructure.repository.database;
 
+import com.example.rohlikproject.infrastructure.mapping.ProductEntity;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -10,7 +11,7 @@ import org.springframework.data.relational.repository.Lock;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-public interface ProductRepository extends CrudRepository<Product, UUID> {
+public interface SpringProductRepository extends CrudRepository<ProductEntity, UUID> {
 
   @Modifying
   @Query("UPDATE products SET name = :name, amount = :amount, price = :price  WHERE id = :id")
@@ -21,8 +22,8 @@ public interface ProductRepository extends CrudRepository<Product, UUID> {
       @Param("price") double price);
 
   @Override
-  List<Product> findAll();
+  List<ProductEntity> findAll();
 
   @Lock(LockMode.PESSIMISTIC_READ)
-  Optional<Product> findByIdAndAmountIsGreaterThanEqual(UUID id, Integer amount);
+  Optional<ProductEntity> findByIdAndAmountIsGreaterThanEqual(UUID id, Integer amount);
 }
