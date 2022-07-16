@@ -1,34 +1,52 @@
 package com.example.rohlikproject.domain.model.order;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.example.rohlikproject.domain.model.product.Product;
+
 import java.io.Serializable;
 import java.time.Instant;
-import org.springframework.data.annotation.Id;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class Order implements Serializable {
 
-  @Id final Long id;
-  final Instant createDate;
-  Instant closedDate;
-  OrderStatus status;
+  private UUID id;
+  private Instant createDate;
+  private Instant closedDate;
+  private OrderStatus status;
+  private List<OrderItem> items;
+  private Double price;
 
-  @JsonCreator
-  public Order(Long id, Instant createDate) {
+  public Order(UUID id, Product product, Integer amount) {
     this.id = id;
-    this.createDate = createDate;
+    this.createDate = Instant.now();
     this.status = OrderStatus.OPEN;
+    this.items = new ArrayList<>(List.of(new OrderItem(product, amount)));
+    this.price = product.getPrice();
   }
 
-  public Long id() {
+  public UUID getId() {
     return id;
   }
 
-  public Instant createDate() {
+  public Instant getCreateDate() {
     return createDate;
   }
 
-  public Instant closedDate() {
+  public Instant getClosedDate() {
     return closedDate;
+  }
+
+  public OrderStatus getStatus() {
+    return status;
+  }
+
+  public List<OrderItem> getItems() {
+    return items;
+  }
+
+  public Double getPrice() {
+    return price;
   }
 
   public void cancel() {

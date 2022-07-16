@@ -1,45 +1,35 @@
 package com.example.rohlikproject.domain.model.product;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.time.Instant;
-import org.springframework.data.annotation.Id;
+import java.util.UUID;
 
 public class Product implements Serializable {
 
-  @Id final Long id;
-  final Timestamp createDate;
-  final Integer amount;
-  final Double price;
-  final String name;
+  private UUID id;
+  private Integer amount;
+  private Double price;
+  private String name;
 
-  @JsonCreator
-  public Product(Long id, String name, Integer amount, Double price) {
+  public Product(UUID id, Integer amount, Double price, String name) {
     this.id = id;
-    this.name = name;
     this.amount = amount;
     this.price = price;
-    this.createDate = Timestamp.from(Instant.now());
+    this.name = name;
   }
 
-  public Long id() {
+  public UUID getId() {
     return id;
   }
 
-  public Timestamp createDate() {
-    return createDate;
-  }
-
-  public Integer amount() {
+  public Integer getAmount() {
     return amount;
   }
 
-  public Double price() {
+  public Double getPrice() {
     return price;
   }
 
-  public String name() {
+  public String getName() {
     return name;
   }
 }

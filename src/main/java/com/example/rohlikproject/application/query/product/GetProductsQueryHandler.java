@@ -4,7 +4,9 @@ import com.example.rohlikproject.application.querybus.QueryHandler;
 import com.example.rohlikproject.application.usecases.products.GetProductsUseCase;
 import com.example.rohlikproject.domain.model.product.Product;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GetProductsQueryHandler implements QueryHandler<List<Product>, GetProductsQuery> {
 
   private final GetProductsUseCase useCase;
