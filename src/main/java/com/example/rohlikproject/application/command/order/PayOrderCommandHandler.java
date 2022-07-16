@@ -3,7 +3,9 @@ package com.example.rohlikproject.application.command.order;
 import com.example.rohlikproject.application.commandbus.CommandHandler;
 import com.example.rohlikproject.application.usecases.orders.PayOrderUseCase;
 import com.example.rohlikproject.domain.model.order.OrderRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PayOrderCommandHandler implements CommandHandler<PayOrderCommand> {
 
   private final OrderRepository repository;

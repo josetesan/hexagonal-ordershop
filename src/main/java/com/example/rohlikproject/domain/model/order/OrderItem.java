@@ -25,4 +25,14 @@ public class OrderItem {
   public Double getPrice() {
     return price;
   }
+
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("OrderItem{");
+    sb.append("productId=").append(productId);
+    sb.append(", amount=").append(amount);
+    sb.append(", price=").append(price);
+    sb.append('}');
+    return sb.toString();
+  }
 }
