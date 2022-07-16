@@ -3,10 +3,11 @@ package com.example.rohlikproject.domain.model.order;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import java.io.Serializable;
 import java.time.Instant;
+import org.springframework.data.annotation.Id;
 
 public class Order implements Serializable {
 
-  final Long id;
+  @Id final Long id;
   final Instant createDate;
   Instant closedDate;
   OrderStatus status;

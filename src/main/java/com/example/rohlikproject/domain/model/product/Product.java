@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.Instant;
+import org.springframework.data.annotation.Id;
 
 public class Product implements Serializable {
 
-  final Long id;
+  @Id final Long id;
   final Timestamp createDate;
   final Integer amount;
   final Double price;
