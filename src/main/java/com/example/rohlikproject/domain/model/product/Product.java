@@ -1,7 +1,6 @@
 package com.example.rohlikproject.domain.model.product;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-
 import java.io.Serializable;
 import java.util.UUID;
 import java.util.function.Predicate;

@@ -36,10 +36,10 @@ public class Order implements Serializable {
                   var product =
                       new Product(
                           request.productId(),
-                          request.amount(),
+                          request.amountRequested(),
                           request.pricePerUnit(),
                           request.name());
-                  return new OrderItem(product, request.amount());
+                  return new OrderItem(product, request.amountRequested());
                 })
             .collect(Collectors.toSet());
   }

@@ -8,6 +8,7 @@ import com.example.rohlikproject.application.query.order.GetOrdersQuery;
 import com.example.rohlikproject.application.querybus.QueryBus;
 import com.example.rohlikproject.domain.model.order.Order;
 import com.example.rohlikproject.infrastructure.rest.Constants;
+import com.example.rohlikproject.infrastructure.rest.exceptions.InsufficientProductStockException;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +34,15 @@ public class OrderController {
   }
 
   @PostMapping
-  public ResponseEntity<String> createOrder(@RequestBody CreateOrderCommand command)
+  public ResponseEntity<Object> createOrder(@RequestBody CreateOrderCommand command)
       throws Exception {
-    this.commandBus.handle(command);
+    try {
+      this.commandBus.handle(command);
+    } catch (InsufficientProductStockException ipse) {
+      return ResponseEntity.badRequest()
+          .headers(httpHeaders -> httpHeaders.add(Constants.X_ERROR_HEADER, "not enough stock"))
+          .body(ipse.getMessage());
+    }
     return ResponseEntity.ok().build();
   }
 

@@ -4,6 +4,7 @@ import com.example.rohlikproject.application.command.product.UpdateProductComman
 import com.example.rohlikproject.domain.model.product.Product;
 import com.example.rohlikproject.infrastructure.rest.exceptions.ProductNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class UpdateProductUseCase {
@@ -14,6 +15,7 @@ public class UpdateProductUseCase {
     this.productRepository = productRepository;
   }
 
+  @Transactional
   public void handle(UpdateProductCommand updateProductCommand) throws ProductNotFoundException {
     var product =
         new Product(
