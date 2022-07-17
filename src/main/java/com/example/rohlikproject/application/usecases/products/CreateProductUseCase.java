@@ -14,7 +14,7 @@ public class CreateProductUseCase {
   }
 
   public void handle(CreateProductCommand command) {
-    var product = new Product(command.amount(), command.price(), command.name());
+    var product = new Product(null, command.amount(), command.price(), command.name());
     this.productRepository.createProduct(product);
   }
 }

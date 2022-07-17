@@ -58,8 +58,7 @@ public class ProductController {
   @GetMapping
   @ResponseBody
   public ResponseEntity<List> getProducts() throws Exception {
-    GetProductsQuery query = new GetProductsQuery();
-    List<Product> products = this.queryBus.handle(query);
+    List<Product> products = this.queryBus.handle(new GetProductsQuery());
     return ResponseEntity.ok().body(products);
   }
 

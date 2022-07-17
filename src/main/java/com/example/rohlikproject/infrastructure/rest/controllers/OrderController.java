@@ -50,8 +50,7 @@ public class OrderController {
 
   @GetMapping
   public ResponseEntity<List<Order>> retrieveOrders() throws Exception {
-    GetOrdersQuery query = new GetOrdersQuery();
-    List<Order> orders = this.queryBus.handle(query);
+    List<Order> orders = this.queryBus.handle(new GetOrdersQuery());
     return ResponseEntity.ok().body(orders);
   }
 
