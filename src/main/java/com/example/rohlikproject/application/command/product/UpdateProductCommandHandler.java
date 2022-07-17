@@ -8,16 +8,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class UpdateProductCommandHandler implements CommandHandler<UpdateProductCommand> {
 
-  private final SpringProductRepository repository;
   private final UpdateProductUseCase useCase;
 
-  public UpdateProductCommandHandler(
-      SpringProductRepository repository, UpdateProductUseCase useCase) {
-    this.repository = repository;
+  public UpdateProductCommandHandler(UpdateProductUseCase useCase) {
     this.useCase = useCase;
   }
 
   @Override
   @org.jmolecules.architecture.cqrs.annotation.CommandHandler
-  public void handle(UpdateProductCommand command) throws Exception {}
+  public void handle(UpdateProductCommand command) throws Exception {
+    this.useCase.handle(command);
+  }
 }

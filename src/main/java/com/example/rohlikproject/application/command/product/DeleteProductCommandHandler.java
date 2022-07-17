@@ -8,17 +8,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class DeleteProductCommandHandler implements CommandHandler<DeleteProductCommand> {
 
-  private final SpringProductRepository repository;
-
   private final DeleteProductUseCase useCase;
 
-  public DeleteProductCommandHandler(
-      SpringProductRepository repository, DeleteProductUseCase useCase) {
-    this.repository = repository;
+  public DeleteProductCommandHandler(DeleteProductUseCase useCase) {
     this.useCase = useCase;
   }
 
   @Override
   @org.jmolecules.architecture.cqrs.annotation.CommandHandler
-  public void handle(DeleteProductCommand command) throws Exception {}
+  public void handle(DeleteProductCommand command) throws Exception {
+    this.useCase.handle(command);
+  }
 }

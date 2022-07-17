@@ -1,5 +1,7 @@
 package com.example.rohlikproject.domain.model.product;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import java.io.Serializable;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -11,6 +13,7 @@ public class Product implements Serializable {
   private Double unitPrice;
   private String name;
 
+  @JsonCreator
   public Product(UUID id, Integer amount, Double unitPrice, String name) {
     this.id = id;
     this.amount = amount;
