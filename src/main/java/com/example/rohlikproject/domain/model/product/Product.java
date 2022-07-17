@@ -2,6 +2,7 @@ package com.example.rohlikproject.domain.model.product;
 
 import java.io.Serializable;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 public class Product implements Serializable {
 
@@ -48,5 +49,9 @@ public class Product implements Serializable {
     sb.append(", name='").append(name).append('\'');
     sb.append('}');
     return sb.toString();
+  }
+
+  public static Predicate<Product> hasEnoughStock(Integer amountRequested) {
+    return product -> product.getAmount() >= amountRequested;
   }
 }

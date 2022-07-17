@@ -44,6 +44,15 @@ public class ProductRepositoryAdapter implements ProductRepository {
   }
 
   @Override
+  @Lock(LockMode.PESSIMISTIC_WRITE)
+  public void deleteProduct(UUID productId) {
+    findByIdForUpdate(productId)
+        .ifPresent(
+            product ->
+                productRepository.update(productId, product.getName(), 0, product.getUnitPrice()));
+  }
+
+  @Override
   public List<Product> retrieveProducts() {
     return productRepository.findAll().stream()
         .map(
@@ -54,19 +63,6 @@ public class ProductRepositoryAdapter implements ProductRepository {
                     productEntity.getPrice(),
                     productEntity.getName()))
         .toList();
-  }
-
-  @Override
-  public Optional<Product> retrieveProductWithAmountBiggerThan(UUID id, Integer amount) {
-    return productRepository
-        .findByIdAndAmountIsGreaterThanEqual(id, amount)
-        .map(
-            productEntity ->
-                new Product(
-                    productEntity.getId(),
-                    productEntity.getAmount(),
-                    productEntity.getPrice(),
-                    productEntity.getName()));
   }
 
   @Override

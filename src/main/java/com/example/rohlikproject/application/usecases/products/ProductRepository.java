@@ -21,15 +21,18 @@ public interface ProductRepository {
   List<Product> retrieveProducts();
 
   /**
-   * @param id
-   * @return
-   */
-  Optional<Product> retrieveProductWithAmountBiggerThan(UUID id, Integer amount);
-
-  /**
    * @param product
    */
   void updateProduct(Product product);
 
+  /**
+   * @param id
+   * @return
+   */
   Optional<Product> findByIdForUpdate(UUID id);
+
+  /**
+   * @param productId
+   */
+  void deleteProduct(UUID productId);
 }

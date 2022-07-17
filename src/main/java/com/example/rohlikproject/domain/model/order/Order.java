@@ -1,11 +1,13 @@
 package com.example.rohlikproject.domain.model.order;
 
+import com.example.rohlikproject.application.usecases.orders.ProductRequestDto;
 import com.example.rohlikproject.domain.model.product.Product;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Order implements Serializable {
 
@@ -24,10 +26,22 @@ public class Order implements Serializable {
     this.items = items;
   }
 
-  public Order(Product product, Integer amount) {
+  public Order(List<ProductRequestDto> requestList) {
     this.createDate = Instant.now();
     this.status = OrderStatus.OPEN;
-    this.items = new HashSet<>(Set.of(new OrderItem(product, amount)));
+    this.items =
+        requestList.stream()
+            .map(
+                request -> {
+                  var product =
+                      new Product(
+                          request.productId(),
+                          request.amount(),
+                          request.pricePerUnit(),
+                          request.name());
+                  return new OrderItem(product, request.amount());
+                })
+            .collect(Collectors.toSet());
   }
 
   public Instant getCreateDate() {
