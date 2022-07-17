@@ -18,4 +18,6 @@ public interface OrderRepository {
   public void closeOrder(UUID order);
 
   List<Order> findAll();
+
+  List<Order> findOrdersDue(Integer maxTimeOrdersDue);
 }

@@ -20,4 +20,7 @@ public interface SpringOrderRepository extends CrudRepository<OrderEntity, UUID>
 
   @Override
   List<OrderEntity> findAll();
+
+  List<OrderEntity> findAllByStatusEqualsAndCreateDateBefore(
+      OrderStatus status, Instant creationTime);
 }

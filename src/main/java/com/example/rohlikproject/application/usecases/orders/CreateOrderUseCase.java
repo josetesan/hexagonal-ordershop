@@ -32,7 +32,7 @@ public class CreateOrderUseCase {
     this.objectMapper = objectMapper;
   }
 
-  @Transactional
+  @Transactional(rollbackFor = {InsufficientProductStockException.class})
   public void handle(CreateOrderCommand command) throws InsufficientProductStockException {
 
     var insufficientProductStockList = new ArrayList<CreateOrder>();

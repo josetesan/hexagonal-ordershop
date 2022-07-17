@@ -16,4 +16,8 @@ public class GetOrdersUseCase {
   public List<Order> handle() {
     return orderRepository.findAll();
   }
+
+  public List<Order> handle(Integer maxMinutesDue) {
+    return orderRepository.findOrdersDue(maxMinutesDue);
+  }
 }

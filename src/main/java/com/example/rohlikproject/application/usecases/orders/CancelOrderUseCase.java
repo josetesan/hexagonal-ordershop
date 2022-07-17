@@ -6,6 +6,8 @@ import com.example.rohlikproject.domain.model.order.OrderStatus;
 import com.example.rohlikproject.domain.model.product.Product;
 import com.example.rohlikproject.infrastructure.rest.exceptions.OrderNotFoundException;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class CancelOrderUseCase {
   private final OrderRepository orderRepository;
   private final ProductRepository productRepository;
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(CancelOrderUseCase.class);
 
   public CancelOrderUseCase(OrderRepository orderRepository, ProductRepository productRepository) {
     this.orderRepository = orderRepository;
@@ -49,5 +53,6 @@ public class CancelOrderUseCase {
                           this.productRepository.updateProduct(aProduct);
                           return Optional.empty();
                         }));
+    LOGGER.info("Order {} canceled, products returned", command.getOrderId());
   }
 }
