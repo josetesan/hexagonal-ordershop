@@ -1,6 +1,7 @@
 package com.example.rohlikproject.application.usecases.products;
 
 import com.example.rohlikproject.application.command.product.DeleteProductCommand;
+import com.example.rohlikproject.infrastructure.rest.exceptions.ProductNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +15,9 @@ public class DeleteProductUseCase {
   }
 
   @Transactional
-  public void handle(DeleteProductCommand command) {
-    this.productRepository.deleteProduct(command.getProductId());
+  public void handle(DeleteProductCommand command) throws ProductNotFoundException {
+    if (productRepository.findByIdForUpdate(command.getProductId()).isPresent()) {
+      this.productRepository.deleteProduct(command.getProductId());
+    } else throw new ProductNotFoundException(command.getProductId());
   }
 }

@@ -7,6 +7,7 @@ import com.example.rohlikproject.application.commandbus.CommandBus;
 import com.example.rohlikproject.application.query.order.GetOrdersQuery;
 import com.example.rohlikproject.application.querybus.QueryBus;
 import com.example.rohlikproject.domain.model.order.Order;
+import com.example.rohlikproject.infrastructure.rest.Constants;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
@@ -46,12 +47,12 @@ public class OrderController {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> cancelOrder(@PathVariable("id") UUID id) throws Exception {
+  public ResponseEntity<Void> cancelOrder(@PathVariable("id") UUID id) {
     try {
       this.commandBus.handle(new CancelOrderCommand(id));
     } catch (Exception onfe) {
       return ResponseEntity.badRequest()
-          .headers(httpHeaders -> httpHeaders.add("x-error", onfe.getMessage()))
+          .headers(httpHeaders -> httpHeaders.add(Constants.X_ERROR_HEADER, onfe.getMessage()))
           .build();
     }
     return ResponseEntity.noContent().build();
@@ -63,7 +64,7 @@ public class OrderController {
       this.commandBus.handle(new PayOrderCommand(id));
     } catch (Exception onfe) {
       return ResponseEntity.badRequest()
-          .headers(httpHeaders -> httpHeaders.add("x-error", onfe.getMessage()))
+          .headers(httpHeaders -> httpHeaders.add(Constants.X_ERROR_HEADER, onfe.getMessage()))
           .build();
     }
     return ResponseEntity.accepted().build();
