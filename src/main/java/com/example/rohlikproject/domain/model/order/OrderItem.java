@@ -1,6 +1,7 @@
 package com.example.rohlikproject.domain.model.order;
 
 import com.example.rohlikproject.domain.model.product.Product;
+import java.util.Objects;
 import java.util.UUID;
 
 public class OrderItem {
@@ -40,5 +41,20 @@ public class OrderItem {
     sb.append(", totalPrice=").append(getTotalPrice());
     sb.append('}');
     return sb.toString();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    OrderItem orderItem = (OrderItem) o;
+    return Objects.equals(getProductId(), orderItem.getProductId())
+        && Objects.equals(getAmount(), orderItem.getAmount())
+        && Objects.equals(getUnitPrice(), orderItem.getUnitPrice());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getProductId(), getAmount(), getUnitPrice());
   }
 }

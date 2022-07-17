@@ -2,8 +2,8 @@ package com.example.rohlikproject.domain.model.product;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
-import java.util.function.Predicate;
 
 public class Product implements Serializable {
 
@@ -14,11 +14,15 @@ public class Product implements Serializable {
 
   @JsonCreator
   public Product(UUID id, Integer amount, Double unitPrice, String name) {
+
     this.id = id;
-    this.amount = amount;
-    this.unitPrice = unitPrice;
-    this.name = name;
+    this.amount = Objects.requireNonNull(amount, "Amount can not be null");
+    this.unitPrice = Objects.requireNonNull(unitPrice, "unitPrice can not be null");
+    this.name = Objects.requireNonNull(name, "name can not be null");
+    ;
   }
+
+  public Product() {}
 
   public UUID getId() {
     return id;
@@ -47,7 +51,19 @@ public class Product implements Serializable {
     return sb.toString();
   }
 
-  public static Predicate<Product> hasEnoughStock(Integer amountRequested) {
-    return product -> product.getAmount() >= amountRequested;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Product product = (Product) o;
+    return Objects.equals(getId(), product.getId())
+        && Objects.equals(getAmount(), product.getAmount())
+        && Objects.equals(getUnitPrice(), product.getUnitPrice())
+        && Objects.equals(getName(), product.getName());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getId(), getAmount(), getUnitPrice(), getName());
   }
 }

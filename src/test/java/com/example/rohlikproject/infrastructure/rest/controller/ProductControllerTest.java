@@ -1,7 +1,5 @@
 package com.example.rohlikproject.infrastructure.rest.controller;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -13,7 +11,10 @@ import com.example.rohlikproject.application.commandbus.CommandBus;
 import com.example.rohlikproject.application.querybus.QueryBus;
 import com.example.rohlikproject.domain.model.product.Product;
 import com.example.rohlikproject.infrastructure.rest.controllers.ProductController;
-import java.util.List;
+import com.example.rohlikproject.infrastructure.rest.exceptions.ProductNotFoundException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.UUID;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,22 +30,40 @@ import org.springframework.test.web.servlet.MockMvc;
 public class ProductControllerTest {
 
   @Autowired private MockMvc mockMvc;
+  @Autowired private ObjectMapper objectMapper;
 
   @MockBean private CommandBus commandBus;
-
   @MockBean private QueryBus queryBus;
 
   @Test
-  public void shouldReturnDefaultMessage() throws Exception {
+  @DisplayName("Returns a product when requested")
+  public void shouldReturnProductWhenFound() throws Exception {
 
-    Product product = mock(Product.class);
-    when(queryBus.handle(ArgumentMatchers.any())).thenReturn(List.of(product));
+    var uid = UUID.randomUUID();
+
+    Product product = new Product(uid, 200, 200.0d, "name");
+    when(queryBus.handle(ArgumentMatchers.any())).thenReturn(product);
 
     this.mockMvc
-        .perform(get("/v1/products"))
+        .perform(get("/v1/products/{id}", uid.toString()))
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect(content().string(containsString("")))
-        .andDo(document("products"));
+        .andExpect(content().json(objectMapper.writeValueAsString(product)))
+        .andDo(document("product/find/success"));
+  }
+
+  @Test
+  @DisplayName("Returns a product when requested")
+  public void shouldReturnErrorWhenNotFound() throws Exception {
+
+    var uid = UUID.randomUUID();
+
+    when(queryBus.handle(ArgumentMatchers.any())).thenThrow(new ProductNotFoundException(uid));
+
+    this.mockMvc
+        .perform(get("/v1/products/{id}", uid.toString()))
+        .andDo(print())
+        .andExpect(status().isNotFound())
+        .andDo(document("product/find/error"));
   }
 }

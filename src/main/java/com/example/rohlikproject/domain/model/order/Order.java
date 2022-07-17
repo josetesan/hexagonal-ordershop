@@ -5,6 +5,7 @@ import com.example.rohlikproject.domain.model.product.Product;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -20,10 +21,12 @@ public class Order implements Serializable {
   public Order(
       UUID id, Instant createDate, Instant closedDate, OrderStatus status, Set<OrderItem> items) {
     this.id = id;
-    this.createDate = createDate;
+    this.createDate = Objects.requireNonNull(createDate, "Create date can not be null");
     this.closedDate = closedDate;
-    this.status = status;
-    this.items = items;
+    this.status = Objects.requireNonNull(status, "status can not be null");
+    ;
+    this.items = Objects.requireNonNull(items, "items can not be null");
+    ;
   }
 
   public Order(List<ProductRequestDto> requestList) {
@@ -83,5 +86,22 @@ public class Order implements Serializable {
     sb.append(", totalPrice=").append(getTotalPrice());
     sb.append('}');
     return sb.toString();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Order order = (Order) o;
+    return Objects.equals(getId(), order.getId())
+        && Objects.equals(getCreateDate(), order.getCreateDate())
+        && Objects.equals(getClosedDate(), order.getClosedDate())
+        && getStatus() == order.getStatus()
+        && Objects.equals(getItems(), order.getItems());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getId(), getCreateDate(), getClosedDate(), getStatus(), getItems());
   }
 }
