@@ -26,13 +26,9 @@ public interface ProductRepository {
   void updateProduct(Product product);
 
   /**
-   * @param id
-   * @return
-   */
-  Optional<Product> findByIdForUpdate(UUID id);
-
-  /**
    * @param productId
    */
   void deleteProduct(UUID productId);
+
+  Optional<Product> findProduct(UUID id);
 }

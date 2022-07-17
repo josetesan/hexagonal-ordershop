@@ -28,9 +28,7 @@ public class OrderRepositoryAdapter implements OrderRepository {
 
   @Override
   public Optional<Order> findOrder(UUID orderId) {
-    return orderRepository
-        .findById(orderId)
-        .map(this::entityToModel);
+    return orderRepository.findById(orderId).map(this::entityToModel);
   }
 
   @Override
@@ -70,7 +68,7 @@ public class OrderRepositoryAdapter implements OrderRepository {
             OrderStatus.OPEN, Instant.now().minus(maxTimeOrdersDueMinutes, ChronoUnit.MINUTES))
         .stream()
         .map(this::entityToModel)
-        .collect(Collectors.toList());
+        .toList();
   }
 
   private Order entityToModel(OrderEntity orderEntity) {

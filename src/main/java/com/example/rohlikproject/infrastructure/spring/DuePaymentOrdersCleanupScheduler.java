@@ -26,7 +26,8 @@ public class DuePaymentOrdersCleanupScheduler {
   @Value("${orders.maxtime.due.minutes}")
   private Integer maxTimeOrdersDueMinutes;
 
-  public DuePaymentOrdersCleanupScheduler(CancelOrderUseCase cancelOrderUseCase, OrderRepository orderRepository) {
+  public DuePaymentOrdersCleanupScheduler(
+      CancelOrderUseCase cancelOrderUseCase, OrderRepository orderRepository) {
     this.cancelOrderUseCase = cancelOrderUseCase;
     this.orderRepository = orderRepository;
   }

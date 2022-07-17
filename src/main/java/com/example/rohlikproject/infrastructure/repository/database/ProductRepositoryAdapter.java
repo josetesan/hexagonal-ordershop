@@ -30,8 +30,7 @@ public class ProductRepositoryAdapter implements ProductRepository {
     productRepository.save(productEntity);
   }
 
-  @Lock(LockMode.PESSIMISTIC_READ)
-  public Optional<Product> findByIdForUpdate(UUID id) {
+  public Optional<Product> findProduct(UUID id) {
     return productRepository
         .findById(id)
         .map(
@@ -46,7 +45,7 @@ public class ProductRepositoryAdapter implements ProductRepository {
   @Override
   @Lock(LockMode.PESSIMISTIC_WRITE)
   public void deleteProduct(UUID productId) {
-    findByIdForUpdate(productId)
+    findProduct(productId)
         .ifPresent(
             product ->
                 productRepository.update(productId, product.getName(), 0, product.getUnitPrice()));
@@ -66,6 +65,7 @@ public class ProductRepositoryAdapter implements ProductRepository {
   }
 
   @Override
+  @Lock(LockMode.PESSIMISTIC_WRITE)
   public void updateProduct(Product product) {
     ProductEntity productEntity =
         new ProductEntity(

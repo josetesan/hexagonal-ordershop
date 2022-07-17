@@ -4,6 +4,7 @@ import com.example.rohlikproject.application.command.product.CreateProductComman
 import com.example.rohlikproject.application.command.product.DeleteProductCommand;
 import com.example.rohlikproject.application.command.product.UpdateProductCommand;
 import com.example.rohlikproject.application.commandbus.CommandBus;
+import com.example.rohlikproject.application.query.product.GetProductQuery;
 import com.example.rohlikproject.application.query.product.GetProductsQuery;
 import com.example.rohlikproject.application.querybus.QueryBus;
 import com.example.rohlikproject.domain.model.product.Product;
@@ -40,6 +41,18 @@ public class ProductController {
         new CreateProductCommand(product.getName(), product.getUnitPrice(), product.getAmount());
     this.commandBus.handle(createProductCommand);
     return ResponseEntity.ok().build();
+  }
+
+  @GetMapping("/{id}")
+  @ResponseBody
+  public ResponseEntity<Product> getProduct(@PathVariable("id") UUID id) throws Exception {
+    GetProductQuery getProductQuery = new GetProductQuery(id);
+    try {
+      Product product = this.queryBus.handle(getProductQuery);
+      return ResponseEntity.ok(product);
+    } catch (ProductNotFoundException pnfe) {
+      return ResponseEntity.notFound().build();
+    }
   }
 
   @GetMapping

@@ -23,7 +23,7 @@ public class UpdateProductUseCase {
             updateProductCommand.getAmount(),
             updateProductCommand.getPricePerUnit(),
             updateProductCommand.getName());
-    if (productRepository.findByIdForUpdate(updateProductCommand.getProductId()).isPresent()) {
+    if (productRepository.findProduct(updateProductCommand.getProductId()).isPresent()) {
       this.productRepository.updateProduct(product);
     } else throw new ProductNotFoundException(updateProductCommand.getProductId());
   }

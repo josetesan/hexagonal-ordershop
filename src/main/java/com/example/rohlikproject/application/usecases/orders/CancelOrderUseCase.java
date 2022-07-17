@@ -41,7 +41,7 @@ public class CancelOrderUseCase {
         .forEach(
             item ->
                 this.productRepository
-                    .findByIdForUpdate(item.getProductId())
+                    .findProduct(item.getProductId())
                     .map(
                         product -> {
                           var aProduct =

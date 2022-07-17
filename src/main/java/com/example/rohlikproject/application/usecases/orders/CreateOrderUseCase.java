@@ -39,7 +39,7 @@ public class CreateOrderUseCase {
     var requestOrder = new ArrayList<ProductRequestDto>();
     for (CreateOrder createOrder : command.getCreateOrder()) {
 
-      var optionalStock = this.productRepository.findByIdForUpdate(createOrder.productId());
+      var optionalStock = this.productRepository.findProduct(createOrder.productId());
       if (optionalStock.isPresent()) {
         var stock = optionalStock.get();
         if (stock.getAmount() < createOrder.amount()) {

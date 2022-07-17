@@ -16,7 +16,7 @@ public class DeleteProductUseCase {
 
   @Transactional
   public void handle(DeleteProductCommand command) throws ProductNotFoundException {
-    if (productRepository.findByIdForUpdate(command.getProductId()).isPresent()) {
+    if (productRepository.findProduct(command.getProductId()).isPresent()) {
       this.productRepository.deleteProduct(command.getProductId());
     } else throw new ProductNotFoundException(command.getProductId());
   }

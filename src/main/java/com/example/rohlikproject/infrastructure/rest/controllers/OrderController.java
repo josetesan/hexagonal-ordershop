@@ -4,11 +4,13 @@ import com.example.rohlikproject.application.command.order.CancelOrderCommand;
 import com.example.rohlikproject.application.command.order.CreateOrderCommand;
 import com.example.rohlikproject.application.command.order.PayOrderCommand;
 import com.example.rohlikproject.application.commandbus.CommandBus;
+import com.example.rohlikproject.application.query.order.GetOrderQuery;
 import com.example.rohlikproject.application.query.order.GetOrdersQuery;
 import com.example.rohlikproject.application.querybus.QueryBus;
 import com.example.rohlikproject.domain.model.order.Order;
 import com.example.rohlikproject.infrastructure.rest.Constants;
 import com.example.rohlikproject.infrastructure.rest.exceptions.InsufficientProductStockException;
+import com.example.rohlikproject.infrastructure.rest.exceptions.OrderNotFoundException;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +53,17 @@ public class OrderController {
     GetOrdersQuery query = new GetOrdersQuery();
     List<Order> orders = this.queryBus.handle(query);
     return ResponseEntity.ok().body(orders);
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<Order> retrieveOrder(@PathVariable("id") UUID orderId) throws Exception {
+    GetOrderQuery query = new GetOrderQuery(orderId);
+    try {
+      Order order = this.queryBus.handle(query);
+      return ResponseEntity.ok().body(order);
+    } catch (OrderNotFoundException onfe) {
+      return ResponseEntity.notFound().build();
+    }
   }
 
   @DeleteMapping("/{id}")
