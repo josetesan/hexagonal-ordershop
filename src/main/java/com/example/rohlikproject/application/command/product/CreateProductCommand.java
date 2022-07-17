@@ -2,6 +2,7 @@ package com.example.rohlikproject.application.command.product;
 
 import com.example.rohlikproject.application.commandbus.Command;
 
+@org.jmolecules.architecture.cqrs.annotation.Command
 public class CreateProductCommand extends Command {
 
   private final String name;
