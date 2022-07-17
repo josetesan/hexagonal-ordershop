@@ -14,6 +14,7 @@ public class CreateProductCommandHandler implements CommandHandler<CreateProduct
   }
 
   @Override
+  @org.jmolecules.architecture.cqrs.annotation.CommandHandler
   public void handle(CreateProductCommand command) throws Exception {
     this.useCase.handle(command);
   }

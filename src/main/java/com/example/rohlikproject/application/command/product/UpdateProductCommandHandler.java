@@ -18,5 +18,6 @@ public class UpdateProductCommandHandler implements CommandHandler<UpdateProduct
   }
 
   @Override
+  @org.jmolecules.architecture.cqrs.annotation.CommandHandler
   public void handle(UpdateProductCommand command) throws Exception {}
 }

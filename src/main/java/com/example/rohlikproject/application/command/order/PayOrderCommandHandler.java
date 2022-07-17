@@ -15,6 +15,7 @@ public class PayOrderCommandHandler implements CommandHandler<PayOrderCommand> {
   }
 
   @Override
+  @org.jmolecules.architecture.cqrs.annotation.CommandHandler
   public void handle(PayOrderCommand command) throws OrderNotFoundException {
     this.useCase.handle(command);
   }

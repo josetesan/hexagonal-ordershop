@@ -12,9 +12,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import org.jmolecules.architecture.hexagonal.Port;
 import org.springframework.stereotype.Component;
 
 @Component
+@Port
 public class OrderRepositoryAdapter implements OrderRepository {
 
   private SpringOrderRepository orderRepository;

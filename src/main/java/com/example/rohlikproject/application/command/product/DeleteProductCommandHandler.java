@@ -19,5 +19,6 @@ public class DeleteProductCommandHandler implements CommandHandler<DeleteProduct
   }
 
   @Override
+  @org.jmolecules.architecture.cqrs.annotation.CommandHandler
   public void handle(DeleteProductCommand command) throws Exception {}
 }

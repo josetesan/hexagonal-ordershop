@@ -4,7 +4,9 @@ import com.example.rohlikproject.domain.model.order.Order;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import org.jmolecules.architecture.hexagonal.Adapter;
 
+@Adapter
 public interface OrderRepository {
 
   public Optional<Order> findOrder(UUID order);

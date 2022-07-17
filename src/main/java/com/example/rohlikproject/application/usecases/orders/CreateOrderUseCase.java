@@ -2,9 +2,6 @@ package com.example.rohlikproject.application.usecases.orders;
 
 import com.example.rohlikproject.application.command.order.CreateOrderCommand;
 import com.example.rohlikproject.application.usecases.products.ProductRepository;
-import com.example.rohlikproject.domain.model.order.Order;
-import com.example.rohlikproject.domain.model.product.Product;
-import java.security.InvalidParameterException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +18,8 @@ public class CreateOrderUseCase {
 
   @Transactional
   public void handle(CreateOrderCommand command) {
-
+    System.out.println(command);
+    /*
     var aProduct =
         this.productRepository
             .retrieveProductWithAmountBiggerThan(command.getProductId(), command.getAmount())
@@ -42,5 +40,6 @@ public class CreateOrderUseCase {
 
     var order = new Order(aProduct, command.getAmount());
     orderRepository.createOrder(order);
+    */
   }
 }

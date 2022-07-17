@@ -1,23 +1,26 @@
 package com.example.rohlikproject.application.command.order;
 
 import com.example.rohlikproject.application.commandbus.Command;
-import java.util.UUID;
+import java.util.List;
 
+@org.jmolecules.architecture.cqrs.annotation.Command
 public class CreateOrderCommand extends Command {
 
-  UUID productId;
-  Integer amount;
+  private final List<CreateOrder> createOrder;
 
-  public CreateOrderCommand(UUID productId, Integer amount) {
-    this.productId = productId;
-    this.amount = amount;
+  public CreateOrderCommand(List<CreateOrder> createOrder) {
+    this.createOrder = createOrder;
   }
 
-  public UUID getProductId() {
-    return productId;
+  public List<CreateOrder> getCreateOrder() {
+    return createOrder;
   }
 
-  public Integer getAmount() {
-    return amount;
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("CreateOrderCommand{");
+    sb.append("createOrder=").append(createOrder);
+    sb.append('}');
+    return sb.toString();
   }
 }
