@@ -60,6 +60,14 @@
             <artifactId>jmolecules-hexagonal-architecture</artifactId>
             <version>1.6.0</version>
         </dependency>
+<!--&lt;!&ndash; not working yet , @see https://github.com/springfox/springfox/issues/3462-->
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+<!--&ndash;&gt;-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

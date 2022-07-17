@@ -19,7 +19,6 @@ public class Product implements Serializable {
     this.amount = Objects.requireNonNull(amount, "Amount can not be null");
     this.unitPrice = Objects.requireNonNull(unitPrice, "unitPrice can not be null");
     this.name = Objects.requireNonNull(name, "name can not be null");
-    ;
   }
 
   public Product() {}
