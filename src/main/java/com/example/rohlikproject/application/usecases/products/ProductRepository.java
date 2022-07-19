@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.jmolecules.architecture.hexagonal.Adapter;
+import org.jmolecules.architecture.hexagonal.Port;
 
-@Adapter
+@Port
 /** */
 public interface ProductRepository {
 

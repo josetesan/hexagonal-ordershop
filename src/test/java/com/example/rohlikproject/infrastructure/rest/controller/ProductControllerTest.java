@@ -53,7 +53,7 @@ public class ProductControllerTest {
   }
 
   @Test
-  @DisplayName("Returns a product when requested")
+  @DisplayName("Returns an error when requested product not found")
   public void shouldReturnErrorWhenNotFound() throws Exception {
 
     var uid = UUID.randomUUID();

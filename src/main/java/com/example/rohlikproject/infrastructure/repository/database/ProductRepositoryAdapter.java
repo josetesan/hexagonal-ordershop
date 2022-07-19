@@ -6,13 +6,16 @@ import com.example.rohlikproject.infrastructure.mapping.ProductEntity;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import org.jmolecules.architecture.hexagonal.Adapter;
 import org.jmolecules.architecture.hexagonal.Port;
+import org.jmolecules.ddd.annotation.Entity;
 import org.springframework.data.relational.core.sql.LockMode;
 import org.springframework.data.relational.repository.Lock;
 import org.springframework.stereotype.Component;
 
 @Component
-@Port
+@Adapter
 public class ProductRepositoryAdapter implements ProductRepository {
 
   SpringProductRepository productRepository;
@@ -63,6 +66,7 @@ public class ProductRepositoryAdapter implements ProductRepository {
                     productEntity.getName()))
         .toList();
   }
+
 
   @Override
   @Lock(LockMode.PESSIMISTIC_WRITE)

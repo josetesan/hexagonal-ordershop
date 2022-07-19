@@ -40,7 +40,7 @@ public class DuePaymentOrdersCleanupScheduler {
     orders.forEach(
         order -> {
           try {
-            this.cancelOrderUseCase.handle(new CancelOrderCommand(order.getId()));
+            this.cancelOrderUseCase.handle(order.getId());
           } catch (OrderNotFoundException e) {
             // we can safely skip there, no order to cancel, maybe already satisfied.
           }

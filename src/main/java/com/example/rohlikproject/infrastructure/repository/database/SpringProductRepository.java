@@ -24,6 +24,7 @@ public interface SpringProductRepository extends CrudRepository<ProductEntity, U
   @Override
   List<ProductEntity> findAll();
 
-  @Lock(LockMode.PESSIMISTIC_READ)
-  Optional<ProductEntity> findByIdAndAmountIsGreaterThanEqual(UUID id, Integer amount);
+  @Lock(LockMode.PESSIMISTIC_WRITE)
+  @Override
+  Optional<ProductEntity> findById(UUID id);
 }

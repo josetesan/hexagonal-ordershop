@@ -24,9 +24,7 @@ public class Order implements Serializable {
     this.createDate = Objects.requireNonNull(createDate, "Create date can not be null");
     this.closedDate = closedDate;
     this.status = Objects.requireNonNull(status, "status can not be null");
-    ;
     this.items = Objects.requireNonNull(items, "items can not be null");
-    ;
   }
 
   public Order(List<ProductRequestDto> requestList) {

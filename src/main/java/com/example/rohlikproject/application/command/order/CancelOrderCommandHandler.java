@@ -16,6 +16,6 @@ public class CancelOrderCommandHandler implements CommandHandler<CancelOrderComm
   @Override
   @org.jmolecules.architecture.cqrs.annotation.CommandHandler
   public void handle(CancelOrderCommand command) throws Exception {
-    this.useCase.handle(command);
+    this.useCase.handle(command.getOrderId());
   }
 }

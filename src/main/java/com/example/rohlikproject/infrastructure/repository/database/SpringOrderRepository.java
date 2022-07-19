@@ -4,6 +4,7 @@ import com.example.rohlikproject.domain.model.order.OrderStatus;
 import com.example.rohlikproject.infrastructure.mapping.OrderEntity;
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
@@ -23,4 +24,6 @@ public interface SpringOrderRepository extends CrudRepository<OrderEntity, UUID>
 
   List<OrderEntity> findAllByStatusEqualsAndCreateDateBefore(
       OrderStatus status, Instant creationTime);
+
+
 }

@@ -12,6 +12,7 @@ public class ProductEntity {
   private Double price;
   private String name;
 
+
   public ProductEntity(UUID id, Integer amount, Double price, String name) {
     this.id = id;
     this.amount = amount;
