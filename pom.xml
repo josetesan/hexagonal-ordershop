@@ -8,11 +8,11 @@
         <version>2.7.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>rohlik-project</artifactId>
+    <groupId>com.josetesan</groupId>
+    <artifactId>ordershop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>rohlik-project</name>
-    <description>rohlik-project</description>
+    <name>ordershop</name>
+    <description>ordershop hexagonal</description>
     <properties>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
